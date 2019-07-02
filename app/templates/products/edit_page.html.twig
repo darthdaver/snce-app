@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <ul>
+        <li><a href="{{ path("route_home_page") }}">Home</a></li>
+        <li><a href="{{ path("route_create_page") }}">Create</a></li>
+        <li><a href="{{ path("route_list_page") }}">List</a></li>
+    </ul>
+{% endblock %}
