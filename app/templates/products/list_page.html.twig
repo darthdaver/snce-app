@@ -1,9 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <ul>
-        <li><a href="{{ path("route_home_page") }}">Home</a></li>
-        <li><a href="{{ path("route_create_page") }}">Create</a></li>
-        <li><a href="{{ path("route_edit_page") }}">Edit</a></li>
-    </ul>
+{% block content_body %}
+    <a href="{{ path('route_create_page') }}" class="btn btn-primary pull-right">
+        Create <span class="fa fa-plus-circle"></span>
+    </a>
+    <h1>Products</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.image }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.date }}</td>
+                    <td>
+                        <a href="{{ path('route_edit_product', {product: product.id}) }}"><span class="fa fa-pencil"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
