@@ -19,6 +19,31 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findAllOrderByDate() {
+        return $this->createQueryBuilder('p')
+            ->select("p")
+            ->orderBy('p.date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function filterByTag(?string $filter) {
+        if ($filter && $filter != 'all') {
+            $return = $this->createQueryBuilder('p')
+                ->select("p")
+                ->leftJoin('p.tags', 't')
+                ->andWhere('t.name = :filter')
+                ->setParameter('filter', $filter)
+                ->getQuery()
+                ->getResult();
+
+            return $return;
+        }
+        else {
+            return $this->findAllOrderByDate();
+        }
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

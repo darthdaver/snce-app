@@ -13,6 +13,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Date</th>
+                <th>Tags</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -24,10 +25,35 @@
                     <td>{{ product.description }}</td>
                     <td>{{ product.date|date('Y-m-d') }}</td>
                     <td>
-                        <a href="{{ path('route_edit_product', {product: product.id}) }}"><span class="fa fa-pencil"></span></a>
+                        {% for tag in product.tags %}
+                            <span>{{ tag.name }}<span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ path('route_edit_product', {product: product.id}) }}"><i class="fa fa-pencil"></i></a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <h4>Filter by Tag</h4>
+    <form>
+        <select class="filter" name="q">
+            <option value="all">All Tags</options>
+            {% for tag in allTags%}
+                {% if tag.name == filter %}
+                    <option value="{{ tag.name }}" selected>{{ tag.name }}</option>
+                {% else %}
+                    <option value="{{ tag.name }}">{{ tag.name }}</option>
+                {% endif %}
+            {% endfor%}
+        </select>
+    </form>
+    <span>{{ filter }}</span>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/filter.js') }}"></script>
 {% endblock %}

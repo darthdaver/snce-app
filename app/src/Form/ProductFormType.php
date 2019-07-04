@@ -12,6 +12,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use App\Entity\Product;
+use App\Form\TagFormType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Validator\Constraints\Count;
 
 class ProductFormType extends AbstractType {
     
@@ -26,26 +29,30 @@ class ProductFormType extends AbstractType {
             ])
         ];
 
+        $tagsConstraints = [
+            'min' => 1, 
+            'minMessage' => "Please insert at least one tag"
+        ];
+
         $builder
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, [
+                'required' => false
+            ])
             ->add('imageFile', FileType::class, [
                 'mapped' => false,
                 'required' => false,
                 'constraints' => $imageConstraints
             ])
+            ->add('tags', CollectionType::class, [
+                'entry_type' => TagFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => false,
+                'constraints' => new Count(array('min' => 1, 
+                'minMessage' => "Please insert at least one tag"))
+            ])
         ;
-
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                /** @var Product|null $data */
-                $data = $event->getData();
-                if (!$data) {
-                    return;
-                }
-            }
-        );
     }
 
     public function configureOptions(OptionsResolver $resolver){

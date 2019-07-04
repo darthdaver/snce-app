@@ -9,3 +9,9 @@
         button_text: 'Insert'
     }) }}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/tags.js') }}"></script>
+{% endblock %}

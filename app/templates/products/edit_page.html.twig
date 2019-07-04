@@ -1,9 +1,15 @@
 
-{% extends 'content_base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block content_body %}
+{% block body %}
     <h1>Edit Product</h1>
     {{ include('products/_form.html.twig', {
         button_text: 'Update'
     }) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/tags.js') }}"></script>
 {% endblock %}

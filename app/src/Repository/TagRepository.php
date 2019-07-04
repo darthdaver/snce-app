@@ -19,6 +19,14 @@ class TagRepository extends ServiceEntityRepository
         parent::__construct($registry, Tag::class);
     }
 
+    public function findAllDistinct() {
+        return $this->createQueryBuilder('t')
+            ->select("t.name")
+            ->distinct(true)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Tag[] Returns an array of Tag objects
     //  */

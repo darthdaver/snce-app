@@ -1,4 +1,5 @@
 {{ form_start(productForm) }}
+    {{ form_errors(productForm) }}
     {{ form_row(productForm.name, {
         label: 'Product Name'
     }) }}
@@ -13,5 +14,14 @@
         }
     }) }}
 
+    <label>Tags</label>
+    <ul class="tags" data-prototype="{{ form_widget(productForm.tags.vars.prototype)|e('html_attr') }}">
+        {% for tag in productForm.tags %}
+            <li>{{ form_row(tag.name) }}</li>
+        {% endfor %}
+    </ul>
+    <a href="#" class="js-tags-add">
+        <span class="fa-fa-plus-circle"></span>Add another tag
+    </a>
     <button type="submit" class="btn btn-primary">{{ button_text }}</button>
 {{ form_end(productForm) }}
