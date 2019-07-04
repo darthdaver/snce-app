@@ -31,6 +31,11 @@ class Product
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,5 +75,22 @@ class Product
         $this->description = $description;
 
         return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getImagePath()
+    {
+        return 'uploads/'.$this->getImage();
     }
 }

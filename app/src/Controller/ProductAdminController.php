@@ -30,19 +30,19 @@
             if ($form->isSubmitted() && $form->isValid()){
                 /** @var Product $product */
                 $product = $form->getData();
-                dd($product);
 
                 /** @var UploadedFile $uploadedFile */
                 $uploadedFile = $form['imageFile']->getData();
 
                 if ($uploadedFile) {
                     $newFilename = $uploaderHelper->uploadProductImage($uploadedFile);
-                    dd($product);
                     $product->setImage($newFilename);
                 }
 
-                #$em->persist($product);
-                #$em->flush();
+                $product->setDate(new \DateTime());
+
+                $em->persist($product);
+                $em->flush();
 
                 $this->addFlash('success', 'Product created!');
 
@@ -58,7 +58,7 @@
          * @Route("/product/list", name="route_list_products")
          */
         public function list_products(ProductRepository $productsRepo){
-            $products = $products->findAll();
+            $products = $productsRepo->findAll();
 
             return $this->render('products/list_page.html.twig', [
                 'products' => $products

@@ -7,8 +7,11 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use App\Entity\Product;
 
 class ProductFormType extends AbstractType {
     
@@ -25,7 +28,7 @@ class ProductFormType extends AbstractType {
 
         $builder
             ->add('name', TextType::class)
-            ->add('description')
+            ->add('description', TextareaType::class)
             ->add('imageFile', FileType::class, [
                 'mapped' => false,
                 'required' => false,
@@ -43,6 +46,12 @@ class ProductFormType extends AbstractType {
                 }
             }
         );
+    }
+
+    public function configureOptions(OptionsResolver $resolver){
+        $resolver->setDefaults([
+            'data_class' => Product::class,
+        ]);
     }
 }
 
