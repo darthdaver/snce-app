@@ -18,3 +18,9 @@ ul {
 li {
     display: flex;
 }
+
+label {
+    display: block;
+    margin-top: 2em; 
+}
+
