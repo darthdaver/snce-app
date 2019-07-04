@@ -6,3 +6,15 @@
 .td-image {
     display: flex;
 }
+
+.another {
+    display: block;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    display: flex;
+}
