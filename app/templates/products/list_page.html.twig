@@ -20,7 +20,7 @@
         <tbody>
             {% for product in products %}
                 <tr>
-                    <td><img src="{{ asset(product.imagePath) }}"/></td>
+                    <td class="td-image"><img class="img img-responsive" src="{{ asset(product.imagePath) }}"/></td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.description }}</td>
                     <td>{{ product.date|date('Y-m-d') }}</td>
