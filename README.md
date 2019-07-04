@@ -1,7 +1,7 @@
 # snce-app
 S'nce Group Coding Challenge
 
-Open a terminal and move to the directory of the application.
+Open a terminal and move to the directory of the application (that contains the Dockerfile and the docker-compose.yml file).
 
 Execute the following commands:
 
