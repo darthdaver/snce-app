@@ -1,1 +1,9 @@
 
+{% extends 'content_base.html.twig' %}
+
+{% block content_body %}
+    <h1>Edit Product</h1>
+    {{ include('products/_form.html.twig', {
+        button_text: 'Update'
+    }) }}
+{% endblock %}

@@ -1,0 +1,17 @@
+{{ form_start(productForm) }}
+    {{ form_row(productForm.name, {
+        label: 'Product Name'
+    }) }}
+
+    {{ form_row(productForm.description, {
+        label: 'Description'
+    }) }}
+
+    {{ form_row(productForm.imageFile, {
+        attr: {
+            'placeholder': 'Select a product image'
+        }
+    }) }}
+
+    <button type="submit" class="btn btn-primary">{{ button_text }}</button>
+{{ form_end(productForm) }}

@@ -2,12 +2,10 @@
 
 {% block body %}
     <ul>
-        <li><a href="{{ path("route_list_page") }}">List</a></li>
-        <li><a href="{{ path("route_edit_page") }}">Edit</a></li>
+        <li><a href="{{ path("route_list_products") }}">List</a></li>
     </ul>
     <h1>Insert new product</h1>
-    {{ form_start(productForm) }}
-        {{ form_widget(productForm) }}
-        <button type="submit">Insert</button>
-    {{ form_end(productForm) }}
+    {{ include('products/_form.html.twig', {
+        button_text: 'Insert'
+    }) }}
 {% endblock %}

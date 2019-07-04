@@ -9,6 +9,7 @@
     use Symfony\Component\HttpFoundation\File\UploadedFile;
     use App\Repository\ProductRepository;
     use App\Form\ProductFormType;
+    use App\Service\UploaderHelper;
 
     class ProductAdminController extends AbstractController {
         /**
@@ -19,25 +20,26 @@
         }
 
         /**
-         * @Route("/product/create", name="route_create_product", methods="POST")
+         * @Route("/product/create", name="route_create_product")
          */
-        public function create_product(EntityManagerInterface $em, Request $request){
+        public function create_product(EntityManagerInterface $em, Request $request, UploaderHelper $uploaderHelper){
             $form = $this->createForm(ProductFormType::class);
             
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()){
-                #$data = $form->getData();
-                #$product = new Product();
-                #$product->setName($data['name']);
-                #$product->setDescription($data['description']);
-                #image
-                #tags
-
-                #em->persist($product);
-                #$em->flush();
-                
+                /** @var Product $product */
                 $product = $form->getData();
+                dd($product);
+
+                /** @var UploadedFile $uploadedFile */
+                $uploadedFile = $form['imageFile']->getData();
+
+                if ($uploadedFile) {
+                    $newFilename = $uploaderHelper->uploadProductImage($uploadedFile);
+                    dd($product);
+                    $product->setImage($newFilename);
+                }
 
                 #$em->persist($product);
                 #$em->flush();
@@ -64,10 +66,26 @@
         }
 
         /**
-         * @Route("/product/{product}/edit", name="route_edit_product", methods="POST")
+         * @Route("/product/{product}/edit", name="route_edit_product")
          */
         public function edit_product($product){
-            return new Response(sprintf('Say: %s', $product));
+            /** @var Product $product */
+            $product = $form->getData();
+
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['imageFile']->getData();
+
+            if ($uploadedFile) {
+                $newFilename = $uploaderHelper->uploadProductImage($uploadedFile);
+                $product->setImage($newFilename);
+            }
+
+            $em->persist($product);
+            $em->flush();
+
+            $this->addFlash('success', 'Product updated!');
+
+            return $this->redirectToRoute('route_list_products');
         }
     }
 ?>
